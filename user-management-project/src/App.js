@@ -16,38 +16,49 @@ function App() {
   const submit = (e) => {
     e.preventDefault();
     setUsuarios([...usuarios, formulario]);
-    reset()
+    reset();
   };
 
   console.log(formulario, usuarios);
   return (
-    <Container>
-      <Card>
-        <div style={{ padding: 20 }}>
-          <form onSubmit={submit}>
-            <Input
-              label="Nombre"
-              name="name"
-              value={formulario.name}
-              onChange={handleChange}
-            />
-            <Input
-              label="Apellido"
-              name="lastname"
-              value={formulario.lastname}
-              onChange={handleChange}
-            />
-            <Input
-              label="Correo"
-              name="email"
-              value={formulario.email}
-              onChange={handleChange}
-            />
-            <Button>Enviar</Button>
-          </form>
-        </div>
-      </Card>
-    </Container>
+    <section style={{ marginTop: "15%" }}>
+      <Container>
+        <Card>
+          <div style={{ padding: 20 }}>
+            <form onSubmit={submit}>
+              <Input
+                label="Nombre"
+                name="name"
+                value={formulario.name}
+                onChange={handleChange}
+              />
+              <Input
+                label="Apellido"
+                name="lastname"
+                value={formulario.lastname}
+                onChange={handleChange}
+              />
+              <Input
+                label="Correo"
+                name="email"
+                value={formulario.email}
+                onChange={handleChange}
+              />
+              <Button>Enviar</Button>
+            </form>
+          </div>
+        </Card>
+        <Card>
+          <ul>
+            {usuarios.map((user) => (
+              <li
+                key={user.email}
+              >{`${user.name} ${user.lastname}: ${user.email} `}</li>
+            ))}
+          </ul>
+        </Card>
+      </Container>
+    </section>
   );
 }
 
