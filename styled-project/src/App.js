@@ -45,11 +45,26 @@ const StyledLink = styled(Link)`
   color: blue;
 `;
 
+const Input = styled.input.attrs((props) => ({
+  type: "text",
+  color: props.color || "red",
+}))`
+  font-size: 20px;
+  border: 1px solid red;
+  color: ${(props) => props.color};
+`;
+
+const Password = styled(Input).attrs({
+  type: "password",
+})``;
+
 function App() {
   return (
     <Content>
       <P>Hola soy un parrafo</P>
-      <Button>Enviar <p className="info">Info</p></Button>
+      <Button>
+        Enviar <p className="info">Info</p>
+      </Button>
       <Button primary>Enviar</Button>
       <Button className="secondary">Enviar</Button>
       <BlockButton primary as="a" href="#">
@@ -58,6 +73,8 @@ function App() {
       <BlockButton primary>Enviar</BlockButton>
       <Link>Link</Link>
       <StyledLink>Link con estilo</StyledLink>
+      <Input color="blue" />
+      <Password />
     </Content>
   );
 }
