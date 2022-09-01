@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const initialState = {
   entities: [],
+  filter: "all", // || complete || incomplete
 };
 
 export const reducer = (state = initialState, action) => {
@@ -25,9 +26,29 @@ export const reducer = (state = initialState, action) => {
         entities: newTodos,
       };
     }
+    case "filter/set": {
+      return {
+        ...state,
+        filter: action.payload,
+      };
+    }
     default:
       return state;
   }
+};
+
+const selectTodos = (state) => {
+  const { entities, filter } = state;
+
+  if (filter === "complete") {
+    return entities.filter((todo) => todo.completed);
+  }
+
+  if (filter === "incomplete") {
+    return entities.filter((todo) => !todo.completed);
+  }
+
+  return entities;
 };
 
 const TodoItem = ({ todo }) => {
@@ -45,7 +66,7 @@ const TodoItem = ({ todo }) => {
 const App = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
-  const state = useSelector((x) => x);
+  const todos = useSelector(selectTodos);
 
   const submit = (e) => {
     e.preventDefault();
@@ -62,13 +83,21 @@ const App = () => {
       <form onSubmit={submit}>
         <input value={value} onChange={(e) => setValue(e.target.value)} />
       </form>
-      <button onClick={() => dispatch({ type: "todo/add" })}>
+      <button onClick={() => dispatch({ type: "filter/set", payload: "all" })}>
         Mostrar todos
       </button>
-      <button>Completados</button>
-      <button>Incompletos</button>
+      <button
+        onClick={() => dispatch({ type: "filter/set", payload: "complete" })}
+      >
+        Completados
+      </button>
+      <button
+        onClick={() => dispatch({ type: "filter/set", payload: "incomplete" })}
+      >
+        Incompletos
+      </button>
       <ul>
-        {state.entities.map((todo) => (
+        {todos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
