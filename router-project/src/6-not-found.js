@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 const Inicio = () => {
   return <h1>Incio</h1>;
@@ -13,8 +13,6 @@ const NotFound = () => {
 };
 
 function App() {
-  // useNavigate replaced 'useHistory', implementation is as seen below in buttons.
-  const navigate = useNavigate();
   return (
     <div>
       <nav>
@@ -31,9 +29,6 @@ function App() {
         </ul>
       </nav>
       <section>
-        <button onClick={() => navigate(-1)}>Go back</button>
-        <button onClick={() => navigate(1)}>Go forward</button>
-        <button onClick={() => navigate("/chanchitofeliz")}>Push</button>
         <Routes>
           <Route exact path="/" element={<Inicio />} />
           <Route path="perfil" element={<Perfil />} />
