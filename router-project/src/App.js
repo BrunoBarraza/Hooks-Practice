@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Link } from "react-router-dom";
+// Router v6 has updated 'Switch' to 'Routes' and can only render Components using the element tag, as shown below1.
+
+const Inicio = () => {
+  return <h1>Incio</h1>;
+};
+
+const Portafolio = () => {
+  return <h1>Portafolio</h1>;
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/portafolio">Portafolio</Link>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <Routes>
+          <Route exact path="/" element={<Inicio />} />
+          <Route path="/portafolio" element={<Portafolio />} />
+        </Routes>
+      </section>
     </div>
   );
 }
