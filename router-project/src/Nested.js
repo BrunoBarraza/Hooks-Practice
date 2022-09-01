@@ -1,20 +1,17 @@
-import { Routes, Route, Link, Outlet, useParams } from "react-router-dom";
+import { Routes, Route, Link, Outlet } from "react-router-dom";
+// Router v6 has updated, 'Switch' to 'Routes' and can only render Components using the element tag, as shown below.
+// Nested Routes has updated, you need to nest the route within 'Routes' then import 'Outlet' on the parent component to show the JSX.
 
 const Inicio = () => {
   return <h1>Incio</h1>;
 };
 
-// const Proyecto1 = () => {
-//   return <h2>Proyecto 1</h2>;
-// };
+const Proyecto1 = () => {
+  return <h2>Proyecto 1</h2>;
+};
 
-// const Proyecto2 = () => {
-//   return <h2>Proyecto 2</h2>;
-// };
-
-const Proyecto = () => {
-  let params = useParams();
-  return <h2>Proyecto {params.proyecto_id}</h2>;
+const Proyecto2 = () => {
+  return <h2>Proyecto 2</h2>;
 };
 
 const Portafolio = () => {
@@ -23,10 +20,10 @@ const Portafolio = () => {
       <h1>Portafolio</h1>
       <ul>
         <li>
-          <Link to={"proyecto-1"}>Proyecto 1</Link>
+          <Link to={"projecto-1"}>Proyecto 1</Link>
         </li>
         <li>
-          <Link to={"proyecto-2"}>Proyecto 2</Link>
+          <Link to={"projecto-2"}>Proyecto 2</Link>
         </li>
       </ul>
       <Outlet />
@@ -51,7 +48,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Inicio />} />
           <Route path="portafolio" element={<Portafolio />}>
-            <Route path={":proyecto_id"} element={<Proyecto />} />
+            <Route path={"projecto-1"} element={<Proyecto1 />} />
+            <Route path={"projecto-2"} element={<Proyecto2 />} />
           </Route>
         </Routes>
       </section>
