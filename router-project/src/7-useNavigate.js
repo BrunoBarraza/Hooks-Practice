@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
 const Inicio = () => {
   return <h1>Incio</h1>;
@@ -12,16 +12,9 @@ const NotFound = () => {
   return <p>404: Ruta no Encontrada</p>;
 };
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
 function App() {
-  const query = useQuery();
-  const chancho = query.get("chanchito");
-  const nombre = query.get("nombre");
-  // get the values from the search in route '....?chanchito=feliz&nombre=felipe'.
-  console.log({ chancho, nombre });
+  // useNavigate replaced 'useHistory', implementation is as seen below in buttons.
+  const navigate = useNavigate();
   return (
     <div>
       <nav>
@@ -38,6 +31,9 @@ function App() {
         </ul>
       </nav>
       <section>
+        <button onClick={() => navigate(-1)}>Go back</button>
+        <button onClick={() => navigate(1)}>Go forward</button>
+        <button onClick={() => navigate("/chanchitofeliz")}>Push</button>
         <Routes>
           <Route exact path="/" element={<Inicio />} />
           <Route path="perfil" element={<Perfil />} />
