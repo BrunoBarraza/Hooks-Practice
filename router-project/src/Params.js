@@ -1,8 +1,16 @@
-import { Routes, Route, NavLink, Outlet, useParams } from "react-router-dom";
+import { Routes, Route, Link, Outlet, useParams } from "react-router-dom";
 
 const Inicio = () => {
   return <h1>Incio</h1>;
 };
+
+// const Proyecto1 = () => {
+//   return <h2>Proyecto 1</h2>;
+// };
+
+// const Proyecto2 = () => {
+//   return <h2>Proyecto 2</h2>;
+// };
 
 const Proyecto = () => {
   let params = useParams();
@@ -15,22 +23,10 @@ const Portafolio = () => {
       <h1>Portafolio</h1>
       <ul>
         <li>
-          <NavLink
-            // This changes the default behavior of the active class name. Replaces 'activeClassName'.
-            className={({ isActive }) => (isActive ? "activado" : '')}
-            to={"proyecto-1"}
-          >
-            Proyecto 1
-          </NavLink>
+          <Link to={"proyecto-1"}>Proyecto 1</Link>
         </li>
         <li>
-          <NavLink
-            // This changes the default behavior of the active style. Replaces 'activeStyle'
-            style={({ isActive }) => ({ fontSize: isActive ? 20 : '' })}
-            to={"proyecto-2"}
-          >
-            Proyecto 2
-          </NavLink>
+          <Link to={"proyecto-2"}>Proyecto 2</Link>
         </li>
       </ul>
       <Outlet />
@@ -44,10 +40,10 @@ function App() {
       <nav>
         <ul>
           <li>
-            <NavLink to="/">Inicio</NavLink>
+            <Link to="/">Inicio</Link>
           </li>
           <li>
-            <NavLink to="/portafolio">Portafolio</NavLink>
+            <Link to="/portafolio">Portafolio</Link>
           </li>
         </ul>
       </nav>
