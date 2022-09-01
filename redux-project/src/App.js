@@ -1,4 +1,3 @@
-import { getValue } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,13 +13,33 @@ export const reducer = (state = initialState, action) => {
         entities: state.entities.concat({ ...action.payload }),
       };
     }
+    case "todo/complete": {
+      const newTodos = state.entities.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, completed: !todo.completed };
+        }
+        return todo;
+      });
+      return {
+        ...state,
+        entities: newTodos,
+      };
+    }
     default:
       return state;
   }
 };
 
 const TodoItem = ({ todo }) => {
-  return <li>{todo.title}</li>;
+  const dispatch = useDispatch();
+  return (
+    <li
+      style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+      onClick={() => dispatch({ type: "todo/complete", payload: todo })}
+    >
+      {todo.title}
+    </li>
+  );
 };
 
 const App = () => {
